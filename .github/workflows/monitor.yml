@@ -1,0 +1,50 @@
+name: Centralized Project Health Monitor
+
+on:
+  schedule:
+    # Runs twice daily: 05:30 UTC (11:00 AM IST) and 18:30 UTC (12:00 AM IST midnight)
+    - cron: '30 5,18 * * *'
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions UI
+
+permissions:
+  contents: write # Grants permission to commit and push changes back to the repository
+
+jobs:
+  health-check:
+    name: Run Health Checks & Update Report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Execute Health Check Fetcher (Node.js)
+        run: node fetcher.js
+
+      - name: Setup Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate Daily Markdown Report (Python)
+        run: python generator.py
+
+      - name: Commit and Push Updated Reports
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add raw_data.json daily_report.md
+
+          # Check if there are changes staged before attempting to commit
+          if git diff --staged --quiet; then
+            echo "No changes detected in raw_data.json or daily_report.md. Skipping commit."
+          else
+            git commit -m "chore(monitor): automated health check update $(date -u +'%Y-%m-%d %H:%M UTC') [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
