@@ -9,7 +9,7 @@ A lightweight, automated health monitoring system using a polyglot architecture 
 ```mermaid
 flowchart LR
     A[Cron: 11:00 AM & 12:00 AM IST / Manual] --> B[GitHub Actions Runner]
-    B --> C[Node.js 20 Fetcher]
+    B --> C[Node.js 22 Fetcher]
     C -->|Reads| D[(projects.json)]
     C -->|Async Ping & Metrics| E[Target Endpoints]
     C -->|Outputs| F[(raw_data.json)]
