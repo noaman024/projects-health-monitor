@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-11-25T02:44:29.057Z",
+    "generatedAt": "2026-11-25T15:57:38.739Z",
     "totalChecked": 2,
     "healthyCount": 2,
     "unhealthyCount": 0
@@ -12,9 +12,9 @@
       "url": "https://github.com/noaman024/campuspulse",
       "status": 200,
       "statusText": "OK",
-      "responseTimeMs": 513,
+      "responseTimeMs": 667,
       "isHealthy": true,
-      "timestamp": "2026-11-25T02:44:28.544Z",
+      "timestamp": "2026-11-25T15:57:38.072Z",
       "error": null
     },
     {
@@ -23,9 +23,9 @@
       "url": "https://github.com/noaman024/mj-assistant",
       "status": 200,
       "statusText": "OK",
-      "responseTimeMs": 388,
+      "responseTimeMs": 599,
       "isHealthy": true,
-      "timestamp": "2026-11-25T02:44:28.572Z",
+      "timestamp": "2026-11-25T15:57:38.107Z",
       "error": null
     }
   ]
